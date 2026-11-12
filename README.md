@@ -44,7 +44,3 @@ Copy newly built `.pkg.tar.zst` files into `x86_64/` and run:
 ## GitHub Pages Configuration
 
 In the GitHub repository settings under **Settings -> Pages -> Build and deployment**, set **Source** to **GitHub Actions**. Pushes to `main` automatically publish the repository via `.github/workflows/deploy-pages.yml`.
-
-## License
-
-GPL-3.0-or-later
