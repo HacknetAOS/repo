@@ -1,0 +1,20 @@
+# Pacman repo backup files
+*.old
+*.bak
+*.log
+
+# Never commit private keys
+*.pem
+*.key
+*private*.asc
+.env
+.env.*
+
+# Editor & OS
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+.idea/
+.vscode/

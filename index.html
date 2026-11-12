@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HacknetAOS Package Repository</title>
+    <style>
+        :root {
+            --bg: #0a0812;
+            --panel: #110e1c;
+            --panel-alt: #171326;
+            --fg: #d6d0e8;
+            --dim: #7c7394;
+            --faint: #3b354d;
+            --accent: #9d7ae0;
+            --accent-dim: #4d3878;
+            --accent-glow: #b99cf0;
+            --ok: #6bd089;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: var(--font-mono);
+            line-height: 1.5;
+            padding: 2rem 1rem;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        header {
+            border: 1px solid var(--accent-dim);
+            background: var(--panel);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .header-title {
+            color: var(--accent-glow);
+            font-size: 1.25rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .badge {
+            background: var(--panel-alt);
+            color: var(--ok);
+            border: 1px solid var(--ok);
+            font-size: 0.7rem;
+            padding: 1px 7px;
+            text-transform: uppercase;
+        }
+        .badge-sec {
+            color: var(--accent-glow);
+            border-color: var(--accent);
+        }
+        .subtitle {
+            color: var(--dim);
+            font-size: 0.85rem;
+            margin-top: 0.35rem;
+        }
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--faint);
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .card h2 {
+            color: var(--accent-glow);
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--faint);
+            padding-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        pre {
+            background: var(--bg);
+            border: 1px solid var(--faint);
+            padding: 0.85rem 1rem;
+            color: var(--fg);
+            overflow-x: auto;
+            position: relative;
+            margin: 0.6rem 0;
+            font-size: 0.85rem;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: var(--panel-alt);
+            color: var(--fg);
+            border: 1px solid var(--accent-dim);
+            padding: 3px 9px;
+            font-family: inherit;
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+        .copy-btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+        .info-box {
+            background: var(--panel-alt);
+            border-left: 3px solid var(--accent);
+            padding: 0.65rem 1rem;
+            font-size: 0.82rem;
+            margin: 0.75rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.5rem;
+            font-size: 0.82rem;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--faint);
+        }
+        th {
+            background: var(--bg);
+            color: var(--accent-glow);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .pkg-link {
+            color: var(--accent-glow);
+            text-decoration: none;
+            margin-right: 8px;
+        }
+        .sig-link {
+            color: var(--ok);
+            text-decoration: none;
+            font-size: 0.78rem;
+        }
+        .pkg-link:hover, .sig-link:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            color: var(--dim);
+            font-size: 0.78rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--faint);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-title">
+                <span>HACKNETOS // PACMAN REPOSITORY</span>
+                <span class="badge">x86_64</span>
+                <span class="badge badge-sec">GPG SIGNED</span>
+            </div>
+            <div class="subtitle">Arch Linux binary package repository for HacknetOS</div>
+        </header>
+
+        <section class="card">
+            <h2>01. Import Signing Key</h2>
+            <p style="font-size: 0.85rem;">Import and locally sign the HacknetAOS packaging key in the pacman keyring:</p>
+            <div class="info-box">
+                <strong>Fingerprint:</strong> <code>6D9D 481F 4ACB 997F 919B CA90 D906 9C15 6B0C 606C</code><br>
+                <strong>Public Key:</strong> <a class="pkg-link" href="hacknetaos.asc">hacknetaos.asc</a> | <a class="pkg-link" href="hacknetaos.gpg">hacknetaos.gpg</a>
+            </div>
+            <pre><button class="copy-btn" onclick="copyBlock(this, 'key-text')">COPY</button><code id="key-text">curl -fsSL https://hacknetaos.github.io/repo/hacknetaos.asc | sudo pacman-key --add -
+sudo pacman-key --lsign-key 6D9D481F4ACB997F919BCA90D9069C156B0C606C</code></pre>
+        </section>
+
+        <section class="card">
+            <h2>02. Configure /etc/pacman.conf</h2>
+            <p style="font-size: 0.85rem;">Append the repository block to <code>/etc/pacman.conf</code>:</p>
+            <pre><button class="copy-btn" onclick="copyBlock(this, 'cfg-text')">COPY</button><code id="cfg-text">[hacknetos]
+SigLevel = Required DatabaseOptional
+Server = https://hacknetaos.github.io/repo/$arch</code></pre>
+        </section>
+
+        <section class="card">
+            <h2>03. Install HacknetOS</h2>
+            <pre><button class="copy-btn" onclick="copyBlock(this, 'inst-text')">COPY</button><code id="inst-text">sudo pacman -Syu hacknet-os</code></pre>
+        </section>
+
+        <section class="card">
+            <h2>04. Package Index (x86_64)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Package</th>
+                        <th>Version</th>
+                        <th>Arch</th>
+                        <th>Description</th>
+                        <th>Artifacts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>hacknet-keyring</strong></td>
+                        <td>20261112-1</td>
+                        <td>any</td>
+                        <td>Official PGP keyring for pacman</td>
+                        <td>
+                            <a class="pkg-link" href="x86_64/hacknet-keyring-20261112-1-any.pkg.tar.zst">.pkg.tar.zst</a>
+                            <a class="sig-link" href="x86_64/hacknet-keyring-20261112-1-any.pkg.tar.zst.sig">.sig</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>hacknet-os</strong></td>
+                        <td>0.1.0-6</td>
+                        <td>x86_64</td>
+                        <td>HacknetOS complete desktop meta-package</td>
+                        <td>
+                            <a class="pkg-link" href="x86_64/hacknet-os-0.1.0-6-x86_64.pkg.tar.zst">.pkg.tar.zst</a>
+                            <a class="sig-link" href="x86_64/hacknet-os-0.1.0-6-x86_64.pkg.tar.zst.sig">.sig</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>hacknet-shell</strong></td>
+                        <td>0.1.0-64</td>
+                        <td>any</td>
+                        <td>Quickshell desktop shell, launcher, and greeter</td>
+                        <td>
+                            <a class="pkg-link" href="x86_64/hacknet-shell-0.1.0-64-any.pkg.tar.zst">.pkg.tar.zst</a>
+                            <a class="sig-link" href="x86_64/hacknet-shell-0.1.0-64-any.pkg.tar.zst.sig">.sig</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>hacknetd</strong></td>
+                        <td>0.1.0-18</td>
+                        <td>x86_64</td>
+                        <td>Window placement daemon and NetMap backend</td>
+                        <td>
+                            <a class="pkg-link" href="x86_64/hacknetd-0.1.0-18-x86_64.pkg.tar.zst">.pkg.tar.zst</a>
+                            <a class="sig-link" href="x86_64/hacknetd-0.1.0-18-x86_64.pkg.tar.zst.sig">.sig</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>hacknetctl</strong></td>
+                        <td>0.1.0-11</td>
+                        <td>x86_64</td>
+                        <td>CLI control tool for hacknetd</td>
+                        <td>
+                            <a class="pkg-link" href="x86_64/hacknetctl-0.1.0-11-x86_64.pkg.tar.zst">.pkg.tar.zst</a>
+                            <a class="sig-link" href="x86_64/hacknetctl-0.1.0-11-x86_64.pkg.tar.zst.sig">.sig</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>hacknet-theme</strong></td>
+                        <td>0.1.0-10</td>
+                        <td>x86_64</td>
+                        <td>Theme compiler, presets, and layout spec</td>
+                        <td>
+                            <a class="pkg-link" href="x86_64/hacknet-theme-0.1.0-10-x86_64.pkg.tar.zst">.pkg.tar.zst</a>
+                            <a class="sig-link" href="x86_64/hacknet-theme-0.1.0-10-x86_64.pkg.tar.zst.sig">.sig</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>hacknet-proto</strong></td>
+                        <td>0.1.0-11</td>
+                        <td>x86_64</td>
+                        <td>Shared IPC protocol and state types</td>
+                        <td>
+                            <a class="pkg-link" href="x86_64/hacknet-proto-0.1.0-11-x86_64.pkg.tar.zst">.pkg.tar.zst</a>
+                            <a class="sig-link" href="x86_64/hacknet-proto-0.1.0-11-x86_64.pkg.tar.zst.sig">.sig</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>yay</strong></td>
+                        <td>13.1.0-1</td>
+                        <td>x86_64</td>
+                        <td>AUR helper written in Go</td>
+                        <td>
+                            <a class="pkg-link" href="x86_64/yay-13.1.0-1-x86_64.pkg.tar.zst">.pkg.tar.zst</a>
+                            <a class="sig-link" href="x86_64/yay-13.1.0-1-x86_64.pkg.tar.zst.sig">.sig</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <footer>
+            HacknetAOS &middot; <a class="pkg-link" href="https://github.com/HacknetAOS">github.com/HacknetAOS</a>
+        </footer>
+    </div>
+
+    <script>
+        function copyBlock(btn, elemId) {
+            const txt = document.getElementById(elemId).innerText;
+            navigator.clipboard.writeText(txt).then(() => {
+                const orig = btn.textContent;
+                btn.textContent = 'COPIED';
+                setTimeout(() => { btn.textContent = orig; }, 1400);
+            });
+        }
+    </script>
+</body>
+</html>
